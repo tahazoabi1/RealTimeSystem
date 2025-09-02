@@ -1,0 +1,21 @@
+{
+  "timestamp": 1.75682e+09,
+  "track_id": 11,
+  "person_name": "Taha",
+  "assigned_color": {
+    "r": 0,
+    "g": 1,
+    "b": 1,
+    "color_index": 5
+  },
+  "bounding_box": {
+    "x1": 0,
+    "y1": 174,
+    "x2": 186,
+    "y2": 475
+  },
+  "frame_dimensions": {
+    "width": 854,
+    "height": 480
+  }
+}

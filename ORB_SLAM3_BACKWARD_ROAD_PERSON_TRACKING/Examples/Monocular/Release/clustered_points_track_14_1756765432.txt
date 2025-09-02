@@ -1,0 +1,9 @@
+# Clustered 3D points for stopped person
+# Track ID: 14
+# Person: Taha
+# Timestamp: 1.75677e+09
+# Rectangle: (321, 144) to (374, 302)
+# Format: X Y Z
+-0.372365 -0.141667 2.000000
+-0.496487 -0.800000 2.000000
+-0.248244 0.516667 2.000000

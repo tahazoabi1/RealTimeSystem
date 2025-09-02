@@ -1,0 +1,26 @@
+{
+  "model": "yolov10m.pt",
+  "confidence_threshold": 0.4,
+  "camera_index": 0,
+  "show_fps": true,
+  "save_detections": false,
+  "resolution": {
+    "width": 1280,
+    "height": 720
+  },
+  "device": "cuda",
+  "track_thresh": 0.4,
+  "match_thresh": 0.7,
+  "track_buffer": 30,
+  "iou_threshold": 0.3,
+  "face_recognition_interval": 15,
+  "optimizations": {
+    "use_half_precision": true,
+    "max_detections": 10,
+    "memory_cleanup_interval": 100,
+    "pre_generate_colors": true,
+    "batch_processing": true,
+    "model_warmup_runs": 5
+  },
+  "zones": []
+}

@@ -1,0 +1,9 @@
+# Clustered 3D points for stopped person
+# Track ID: 8
+# Person: Salah
+# Timestamp: 1.75676e+09
+# Rectangle: (307, 180) to (384, 400)
+# Format: X Y Z
+-0.185708 0.221933 1.983321
+-0.275872 -0.236401 1.983321
+-0.095544 0.680266 1.983321

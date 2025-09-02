@@ -1,0 +1,24 @@
+--- a/Examples/Monocular/mono_rtmp_stream_enhanced_hybrid.cc
++++ b/Examples/Monocular/mono_rtmp_stream_enhanced_hybrid.cc
+@@ -203,11 +203,21 @@ int main(int argc, char **argv)
+         // Performance statistics (every 30 frames)
+         if (frame_count % 30 == 0) {
+             auto current_time = chrono::steady_clock::now();
+             double elapsed = chrono::duration<double>(current_time - start_time).count();
+             double avg_fps = frame_count / elapsed;
++            double avg_slam_time = slam_time_total / frame_count;
++            double avg_tracker_time = tracker_time_total / frame_count;
+             
+             // Print comprehensive status
+-            cout << "📊 Frame " << frame_count << " | Avg FPS: " << fixed << setprecision(1) << avg_fps 
++            cout << "📊 Frame " << frame_count 
++                 << " | Avg FPS: " << fixed << setprecision(1) << avg_fps 
++                 << " | SLAM: " << setprecision(1) << avg_slam_time << "ms"
++                 << " | Tracker: " << setprecision(1) << avg_tracker_time << "ms"
+                  << " | Tracker FPS: " << tracker.GetFPS()
+-                 << " | Active Tracks: " << tracker.GetActiveTrackCount() << endl;
++                 << " | Active Tracks: " << tracker.GetActiveTrackCount() 
++                 << " | GPU: " << (tracker.IsGPUEnabled() ? "YES" : "NO")
++                 << endl;
+                  
+             // Print activity statistics

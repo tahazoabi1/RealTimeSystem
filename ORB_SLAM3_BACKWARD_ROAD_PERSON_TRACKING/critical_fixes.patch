@@ -1,0 +1,32 @@
+--- CRITICAL FIXES FOR PERFORMANCE AND DETECTION ---
+
+Problem 1: Wrong YOLO model
+- Python uses: yolov10m.pt (medium, more accurate)
+- C++ uses: yolov10n.onnx (nano, less accurate)
+- Python confidence: 0.4 (optimal)
+- C++ confidence: 0.25 (too low, noise)
+
+Problem 2: CUDA not available in ONNX Runtime
+- Python: Direct PyTorch CUDA (torch.cuda.is_available() = True)
+- C++: ONNX Runtime GPU build missing CUDA provider
+- Need: onnxruntime-gpu with proper CUDA support
+
+Problem 3: Detection processing
+- Python: Robust error handling, memory management
+- C++: Bad allocation, wrong output format assumptions
+
+--- IMMEDIATE ACTIONS NEEDED ---
+
+1. Convert yolov10m.pt to ONNX (not yolov10n.pt):
+   python convert_yolo_to_onnx.py --model yolov10m.pt
+
+2. Fix confidence threshold:
+   config.confidence_threshold = 0.4f; // Not 0.25f
+
+3. Install proper ONNX Runtime GPU:
+   - Download onnxruntime-win-x64-gpu with CUDA 11.8 support
+   - Verify CUDA installation on system
+
+4. Fix output format parsing:
+   - YOLOv10 outputs [1, 300, 6] not [N, 6]
+   - Handle batch dimension properly

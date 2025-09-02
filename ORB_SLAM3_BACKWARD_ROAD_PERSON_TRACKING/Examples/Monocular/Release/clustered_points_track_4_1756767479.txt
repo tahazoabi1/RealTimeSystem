@@ -1,0 +1,9 @@
+# Clustered 3D points for stopped person
+# Track ID: 4
+# Person: ID20
+# Timestamp: 1.75677e+09
+# Rectangle: (150, 117) to (238, 376)
+# Format: X Y Z
+3.118371 1.875761 9.361714
+3.018137 1.384953 9.507166
+3.218606 2.366569 9.216263

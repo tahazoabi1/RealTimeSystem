@@ -1,0 +1,53 @@
+--- a/src/DeviceManagerCPP.cc
++++ b/src/DeviceManagerCPP.cc
+@@ -65,7 +65,13 @@ bool DeviceManagerCPP::initialize(const std::map<std::string, float>& config)
+     // Try to load YOLO model (exact Python model loading logic)
+-    yolo_available_ = load_yolo_model("yolov10n.onnx"); // Use downloaded YOLOv10 model
++    std::string model_path = "D:/Learning/ORB_SLAM3_macosx/yolov10n.onnx";
++    std::cout << "🔍 Loading YOLO model from: " << model_path << std::endl;
++    yolo_available_ = load_yolo_model(model_path);
+     
++    std::cout << "🎯 YOLO Config: conf=" << confidence_threshold_ 
++              << ", nms=" << nms_threshold_ 
++              << ", available=" << yolo_available_ << std::endl;
++
+@@ -114,6 +120,15 @@ bool DeviceManagerCPP::load_yolo_model(const std::string& model_path)
+             gpu_available = true;
+             gpu_available_ = true;
+             std::cout << "🚀 CUDA execution provider enabled" << std::endl;
++            
++            // Verify CUDA provider is actually active
++            auto providers = ort_session_->GetProviders();
++            std::cout << "🔍 Active providers: ";
++            for (const auto& provider : providers) {
++                std::cout << provider << " ";
++            }
++            std::cout << std::endl;
+             
+         } catch (const std::exception& gpu_error) {
+
+@@ -202,6 +217,8 @@ std::vector<YOLODetectionCPP> DeviceManagerCPP::detect_yolo(const cv::Mat& fram
+ {
+     try {
+         // Prepare input data (exact Python preprocessing)
++        std::cout << "🎯 YOLO Input: " << frame.cols << "x" << frame.rows 
++                  << " -> " << input_size_.width << "x" << input_size_.height << std::endl;
+         cv::Mat resized_frame;
+         cv::resize(frame, resized_frame, input_size_);
+         
+@@ -259,6 +276,9 @@ std::vector<YOLODetectionCPP> DeviceManagerCPP::detect_yolo(const cv::Mat& fram
+         // Post-process detections (exact Python post-processing)
+-        return post_process_detections(output_data, frame, confidence_threshold_, nms_threshold_);
++        auto detections = post_process_detections(output_data, frame, confidence_threshold_, nms_threshold_);
++        std::cout << "🎯 YOLO Output: " << detections.size() << " detections" << std::endl;
++        return detections;
+         
+     } catch (const Ort::Exception& e) {
+
+@@ -364,6 +384,8 @@ std::vector<YOLODetectionCPP> DeviceManagerCPP::post_process_detections(
+                 // Filter for person class (0) and confidence threshold
+                 if (class_id == 0 && confidence >= conf_threshold) {
++                    std::cout << "✅ Valid detection: conf=" << confidence 
++                              << ", class=" << class_id << std::endl;
+                     // Convert to frame coordinates
+                     int x = std::max(0, static_cast<int>(x1));

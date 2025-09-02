@@ -1,0 +1,61 @@
+%YAML:1.0
+
+#--------------------------------------------------------------------------------------------
+# Camera Parameters optimized for indoor drone footage
+#--------------------------------------------------------------------------------------------
+File.version: "1.0"
+
+Camera.type: "PinHole"
+
+# Camera calibration parameters (adjusted for 640x480 indoor footage)
+Camera1.fx: 400.0
+Camera1.fy: 400.0  
+Camera1.cx: 320.0
+Camera1.cy: 240.0
+
+# No distortion for simplified indoor testing
+Camera1.k1: 0.0
+Camera1.k2: 0.0
+Camera1.p1: 0.0
+Camera1.p2: 0.0
+
+# Image resolution
+Camera.width: 640
+Camera.height: 480
+
+# Camera frames per second
+Camera.fps: 10
+
+# Color order of the images (0: BGR, 1: RGB)
+Camera.RGB: 1
+
+#--------------------------------------------------------------------------------------------
+# ORB Parameters optimized for indoor scenes
+#--------------------------------------------------------------------------------------------
+
+# ORB Extractor: Number of features per image (reduced to prevent stack overflow)
+ORBextractor.nFeatures: 1000
+
+# ORB Extractor: Scale factor between levels in the scale pyramid
+ORBextractor.scaleFactor: 1.2
+
+# ORB Extractor: Number of levels in the scale pyramid (reduced for smaller stack usage)
+ORBextractor.nLevels: 6
+
+# ORB Extractor: Fast threshold (more sensitive for indoor low-contrast scenes)
+ORBextractor.iniThFAST: 10
+ORBextractor.minThFAST: 5
+
+#--------------------------------------------------------------------------------------------
+# Viewer Parameters
+#--------------------------------------------------------------------------------------------
+Viewer.KeyFrameSize: 0.05
+Viewer.KeyFrameLineWidth: 1.0
+Viewer.GraphLineWidth: 0.9
+Viewer.PointSize: 2.0
+Viewer.CameraSize: 0.08
+Viewer.CameraLineWidth: 3.0
+Viewer.ViewpointX: 0.0
+Viewer.ViewpointY: -0.7
+Viewer.ViewpointZ: -1.8
+Viewer.ViewpointF: 500.0

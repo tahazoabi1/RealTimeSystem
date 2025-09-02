@@ -1,0 +1,6 @@
+# ORB-SLAM3 Path Recording
+# Format: timestamp tx ty tz qx qy qz qw tracking_state confidence
+# Translation in meters, quaternion (x,y,z,w), timestamp in seconds
+# Coordinate system: Camera frame
+1756716774.871000 -0.047476 -0.058452 0.000786 0.009447 -0.025564 -0.010491 0.999574 2 1.000000
+1756716775.437000 -0.032379 -0.109903 0.015042 0.010293 -0.046977 -0.003799 0.998836 2 1.000000

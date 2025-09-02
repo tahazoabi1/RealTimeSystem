@@ -1,0 +1,73 @@
+--- a/Examples/Monocular/mono_rtmp_stream_enhanced_hybrid.cc
++++ b/Examples/Monocular/mono_rtmp_stream_enhanced_hybrid.cc
+@@ -49,7 +49,7 @@ int main(int argc, char **argv)
+     ORB_SLAM3::TrackerConfigCPP config; // Use default struct initialization
+-    config.confidence_threshold = 0.4f;
++    config.confidence_threshold = 0.25f;  // Lower threshold for more detections
+     config.nms_threshold = 0.5f;
+     config.use_yolo = true; // Will fallback to HOG if YOLO models unavailable
+     config.enable_face_recognition = false; // Disable face recognition until models are available
+     config.enable_zone_analytics = true;
+     config.show_trails = true;
+     config.show_zones = true;
+     config.show_activities = true;
+     config.show_face_names = false; // Disable until face recognition models are available
+-    config.frame_skip_interval = 3; // Skip frames for better performance (process every 3rd frame)
++    config.frame_skip_interval = 1; // Process every frame for testing
+     
+@@ -98,16 +98,20 @@ int main(int argc, char **argv)
+     cv::Mat frame;
+     
+     // Create CLAHE processor once (optimization from working version)
+-    cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE(3.0, cv::Size(8, 8));
++    // cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE(3.0, cv::Size(8, 8)); // Disable for performance test
+     
+     // Performance tracking
++    auto overall_start = chrono::steady_clock::now();
+     auto start_time = chrono::steady_clock::now();
+     int frame_count = 0;
+     double total_time = 0.0;
++    double slam_time_total = 0.0;
++    double tracker_time_total = 0.0;
+     
+@@ -132,8 +136,9 @@ int main(int argc, char **argv)
+             gray = frame.clone();
+         }
+         
+         // Apply CLAHE for better feature detection (like working version)
+-        clahe->apply(gray, gray);
++        // clahe->apply(gray, gray); // Disable for performance test
+         
++        auto slam_start = chrono::steady_clock::now();
+         // Validate frame quality before SLAM processing (like working version)
+         cv::Scalar mean, stddev;
+         cv::meanStdDev(gray, mean, stddev);
+@@ -164,17 +169,25 @@ int main(int argc, char **argv)
+             }
+         }
++        auto slam_end = chrono::steady_clock::now();
++        slam_time_total += chrono::duration<double, milli>(slam_end - slam_start).count();
+ 
++        auto tracker_start = chrono::steady_clock::now();
+         // Process frame with Enhanced Hybrid Tracker (complete Python port)
+         // Only process every 3rd frame to improve performance
+-        cv::Mat display_frame = frame.clone();
+-        if (frame_count % 3 == 0) {
++        cv::Mat display_frame = frame; // Use reference instead of clone
++        // if (frame_count % 3 == 0) { // Process every frame for testing
+             vector<ORB_SLAM3::TrackerDetectionCPP> detections = tracker.ProcessFrame(frame, timestamp);
+             
++            std::cout << "🔍 Frame " << frame_count << ": " << detections.size() << " detections" << std::endl;
++            
+             // Get annotated frame with all visualizations
+             cv::Mat annotated_frame = tracker.GetAnnotatedFrame();
+             if (!annotated_frame.empty()) {
+                 display_frame = annotated_frame;
+             }
+-        }
++        // }
++        
++        auto tracker_end = chrono::steady_clock::now();
++        tracker_time_total += chrono::duration<double, milli>(tracker_end - tracker_start).count();
+         
+         // Add system performance overlay to display frame

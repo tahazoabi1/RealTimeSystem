@@ -1,0 +1,21 @@
+{
+  "timestamp": 1.75683e+09,
+  "track_id": 2,
+  "person_name": "",
+  "assigned_color": {
+    "r": 0,
+    "g": 0,
+    "b": 1,
+    "color_index": 2
+  },
+  "bounding_box": {
+    "x1": 331,
+    "y1": 185,
+    "x2": 414,
+    "y2": 469
+  },
+  "frame_dimensions": {
+    "width": 854,
+    "height": 480
+  }
+}
