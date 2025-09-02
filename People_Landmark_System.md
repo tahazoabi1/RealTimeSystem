@@ -945,8 +945,8 @@ This system transforms ORB-SLAM3 from a purely spatial navigation tool into a **
 
 ### Video 1
 
-![People Landmark Demo 1](https://youtu.be/lQABpAMhL3g)
+https://youtu.be/lQABpAMhL3g
 
 ### Video 2
 
-![People Landmark Demo 2](https://youtu.be/QGgwQavPWUY)
+https://youtu.be/QGgwQavPWUY
