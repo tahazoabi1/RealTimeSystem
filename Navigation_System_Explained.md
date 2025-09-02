@@ -613,7 +613,7 @@ This innovation is integrated into every executable, ensuring consistent backwar
 ## Demonstration Videos
 
 ### Video 1:
-![Navigation System Demo 1](https://youtu.be/0UhQ8dROQxk)
+https://youtu.be/0UhQ8dROQxk
 
 ### Video 2:
-![Navigation System Demo 2](https://youtu.be/MYtfuLt32T8)
+https://youtu.be/MYtfuLt32T8
